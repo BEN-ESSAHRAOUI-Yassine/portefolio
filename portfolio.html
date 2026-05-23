@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr" data-profile="dev" data-mode="dark">
+<html lang="fr" data-profile="dev" data-mode="dark" data-lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yassine BEN ESSAHRAOUI — Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <style>
     *, *::before, *::after {
@@ -1126,6 +1126,52 @@
     .stagger-30.visible > *:nth-child(9) { transition-delay: 0.24s; }
     .stagger-30.visible > *:nth-child(10) { transition-delay: 0.27s; }
 
+    /* ===== Language Selector ===== */
+
+    .lang-selector {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+    }
+
+    .lang-btn {
+      font-size: 1.1rem;
+      padding: 2px 4px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background: none;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.3s, border-color 0.3s;
+      line-height: 1;
+    }
+
+    .lang-btn.active,
+    .lang-btn:hover {
+      opacity: 1;
+      border-color: var(--color-accent);
+    }
+
+    /* ===== Arabic Font Overrides ===== */
+
+    [data-lang="ar"] body,
+    [data-lang="ar"] h1, [data-lang="ar"] h2, [data-lang="ar"] h3,
+    [data-lang="ar"] .nav-logo, [data-lang="ar"] .profile-tab,
+    [data-lang="ar"] .skill-badge, [data-lang="ar"] .tag,
+    [data-lang="ar"] .timeline-content h3,
+    [data-lang="ar"] .project-header h3 {
+      font-family: 'Noto Sans Arabic', sans-serif;
+    }
+
+    /* ===== RTL Layout Mirrors ===== */
+
+    [dir="rtl"] .about-grid { direction: rtl; }
+    [dir="rtl"] .section-divider { margin-right: 0; margin-left: auto; }
+    [dir="rtl"] .timeline::before { left: auto; right: 12px; }
+    [dir="rtl"] .timeline-dot { left: auto; right: 6px; }
+    [dir="rtl"] .timeline-content ul li { padding-left: 0; padding-right: 16px; }
+    [dir="rtl"] .timeline-content ul li::before { left: auto; right: 0; }
+
     /* ===== prefers-reduced-motion ===== */
 
     @media (prefers-reduced-motion: reduce) {
@@ -1250,17 +1296,22 @@
     <a href="#hero" class="nav-logo">Yassine BEN ESSAHRAOUI</a>
 
     <ul class="nav-links">
-      <li><a href="#about" aria-label="À propos">À propos</a></li>
-      <li><a href="#skills" aria-label="Compétences">Compétences</a></li>
-      <li><a href="#projects" aria-label="Projets">Projets</a></li>
-      <li><a href="#contact" aria-label="Contact">Contact</a></li>
+      <li><a href="#about" data-i18n="nav.about" aria-label="À propos">À propos</a></li>
+      <li><a href="#skills" data-i18n="nav.skills" aria-label="Compétences">Compétences</a></li>
+      <li><a href="#projects" data-i18n="nav.projects" aria-label="Projets">Projets</a></li>
+      <li><a href="#contact" data-i18n="nav.contact" aria-label="Contact">Contact</a></li>
     </ul>
 
     <div class="nav-right">
       <div class="profile-tabs">
-        <button class="profile-tab active" data-profile="dev" aria-label="Profil Développeur">💻 Dev</button>
-        <button class="profile-tab" data-profile="telecom" aria-label="Profil Télécom">📡 Telecom</button>
-        <button class="profile-tab" data-profile="it" aria-label="Profil IT">🔧 IT</button>
+        <button class="profile-tab active" data-profile="dev" aria-label="Profil Développeur">💻 <span data-i18n="nav.profile.dev">Dev</span></button>
+        <button class="profile-tab" data-profile="telecom" aria-label="Profil Télécom">📡 <span data-i18n="nav.profile.telecom">Telecom</span></button>
+        <button class="profile-tab" data-profile="it" aria-label="Profil IT">🔧 <span data-i18n="nav.profile.it">IT</span></button>
+      </div>
+      <div class="lang-selector">
+        <button class="lang-btn active" data-lang="fr" aria-label="Français">🇫🇷</button>
+        <button class="lang-btn" data-lang="en" aria-label="English">🇬🇧</button>
+        <button class="lang-btn" data-lang="ar" aria-label="العربية">🇲🇦</button>
       </div>
       <button class="mode-toggle" id="mode-toggle" aria-label="Mode sombre / clair">
         <i data-lucide="sun"></i>
@@ -1274,54 +1325,54 @@
   </nav>
 
   <div class="mobile-menu" id="mobile-menu">
-    <a href="#about">À propos</a>
-    <a href="#skills">Compétences</a>
-    <a href="#projects">Projets</a>
-    <a href="#contact">Contact</a>
+    <a href="#about" data-i18n="nav.about">À propos</a>
+    <a href="#skills" data-i18n="nav.skills">Compétences</a>
+    <a href="#projects" data-i18n="nav.projects">Projets</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
   </div>
 
   <!-- ===== Hero ===== -->
   <section id="hero">
     <div class="hero-content">
       <div data-show-in="dev">
-        <p class="hero-title">Développeur Full Stack</p>
+        <p class="hero-title" data-i18n="hero.title.dev">Développeur Full Stack</p>
       </div>
       <div data-show-in="telecom">
-        <p class="hero-title">Référent BE FTTH &amp; Géomaticien</p>
+        <p class="hero-title" data-i18n="hero.title.telecom">Référent BE FTTH &amp; Géomaticien</p>
       </div>
       <div data-show-in="it">
-        <p class="hero-title">Technicien Support &amp; Réseaux</p>
+        <p class="hero-title" data-i18n="hero.title.it">Technicien Support &amp; Réseaux</p>
       </div>
 
-      <h1>Yassine BEN ESSAHRAOUI</h1>
+      <h1 data-i18n="hero.name">Yassine BEN ESSAHRAOUI</h1>
 
       <div class="hero-typewriter" id="typewriter">
         <span id="typewriter-text"></span><span class="cursor"></span>
       </div>
 
       <div data-show-in="dev">
-        <p class="hero-tagline">Building clean, efficient web solutions — from idea to deployment.</p>
+        <p class="hero-tagline" data-i18n="hero.tagline.dev">Building clean, efficient web solutions — from idea to deployment.</p>
       </div>
       <div data-show-in="telecom">
-        <p class="hero-tagline">Designing fiber networks and automating technical workflows since 2016.</p>
+        <p class="hero-tagline" data-i18n="hero.tagline.telecom">Designing fiber networks and automating technical workflows since 2016.</p>
       </div>
       <div data-show-in="it">
-        <p class="hero-tagline">Keeping systems running — from helpdesk to network infrastructure.</p>
+        <p class="hero-tagline" data-i18n="hero.tagline.it">Keeping systems running — from helpdesk to network infrastructure.</p>
       </div>
 
       <div class="hero-ctas">
         <div data-show-in="dev telecom">
           <a href="#projects" class="btn btn-primary">
-            View Projects <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+            <span data-i18n="hero.cta.projects">View Projects</span> <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
           </a>
         </div>
         <div data-show-in="it">
           <a href="#experience" class="btn btn-primary">
-            View Experience <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+            <span data-i18n="hero.cta.projects">View Experience</span> <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
           </a>
         </div>
         <a href="#" class="btn btn-secondary">
-          <i data-lucide="download" style="width:16px;height:16px;"></i> Download CV
+          <i data-lucide="download" style="width:16px;height:16px;"></i> <span data-i18n="hero.cta.cv">Download CV</span>
         </a>
       </div>
 
@@ -1334,7 +1385,7 @@
   <!-- ===== About ===== -->
   <section id="about" class="animate-on-scroll">
     <div class="section-header">
-      <h2>À Propos</h2>
+      <h2 data-i18n="about.title">À Propos</h2>
       <p class="section-subtitle">Qui je suis et ce que je fais</p>
       <div class="section-divider"></div>
     </div>
@@ -1345,13 +1396,13 @@
       </div>
 
       <div>
-        <p class="about-bio" data-show-in="dev">
+        <p class="about-bio" data-show-in="dev" data-i18n="about.bio.dev">
           Développeur Full Stack spécialisé en PHP et Laravel, avec une solide expérience en automatisation industrielle et télécoms. Autonome, rigoureux et orienté qualité du code.
         </p>
-        <p class="about-bio" data-show-in="telecom">
+        <p class="about-bio" data-show-in="telecom" data-i18n="about.bio.telecom">
           Référent BE FTTH avec 4+ ans d'expérience en études de réseaux fibre optique, conception AutoCAD/QGIS, et automatisation de workflows techniques.
         </p>
-        <p class="about-bio" data-show-in="it">
+        <p class="about-bio" data-show-in="it" data-i18n="about.bio.it">
           Technicien polyvalent en maintenance informatique, réseaux et support utilisateurs. Expérience sur des environnements LAN/WAN, postes Windows/Linux, et gestion de parc.
         </p>
 
@@ -1359,75 +1410,75 @@
           <div data-show-in="dev">
             <div class="stat-badge">
               <span class="stat-number" data-target="7">0</span><span class="stat-suffix">+</span>
-              <span class="stat-label">Années d'exp.</span>
+              <span class="stat-label" data-i18n="about.stats.exp">Années d'exp.</span>
             </div>
           </div>
           <div data-show-in="dev">
             <div class="stat-badge">
               <span class="stat-number" data-target="0">0</span>
-              <span class="stat-label">Projets web</span>
+              <span class="stat-label" data-i18n="about.stats.projects">Projets web</span>
             </div>
           </div>
           <div data-show-in="dev">
             <div class="stat-badge">
               <span class="stat-number" data-target="3">0</span>
-              <span class="stat-label">Certifications</span>
+              <span class="stat-label" data-i18n="about.stats.certs">Certifications</span>
             </div>
           </div>
           <div data-show-in="dev">
             <div class="stat-badge">
               <span class="stat-number" data-target="20">0</span><span class="stat-suffix">+</span>
-              <span class="stat-label">Technologies</span>
+              <span class="stat-label" data-i18n="about.stats.techs">Technologies</span>
             </div>
           </div>
 
           <div data-show-in="telecom">
             <div class="stat-badge">
               <span class="stat-number" data-target="4">0</span><span class="stat-suffix">+</span>
-              <span class="stat-label">Années FTTH</span>
+              <span class="stat-label" data-i18n="about.stats.fith">Années FTTH</span>
             </div>
           </div>
           <div data-show-in="telecom">
             <div class="stat-badge">
               <span class="stat-number" data-target="100">0</span><span class="stat-suffix">+</span>
-              <span class="stat-label">Études réalisées</span>
+              <span class="stat-label" data-i18n="about.stats.studies">Études réalisées</span>
             </div>
           </div>
           <div data-show-in="telecom">
             <div class="stat-badge">
               <span class="stat-number" data-target="2">0</span>
-              <span class="stat-label">AutoCAD + QGIS</span>
+              <span class="stat-label" data-i18n="about.stats.cad">AutoCAD + QGIS</span>
             </div>
           </div>
           <div data-show-in="telecom">
             <div class="stat-badge">
               <span class="stat-number" data-target="6">0</span>
-              <span class="stat-label">Clients opérateurs</span>
+              <span class="stat-label" data-i18n="about.stats.clients">Clients opérateurs</span>
             </div>
           </div>
 
           <div data-show-in="it">
             <div class="stat-badge">
               <span class="stat-number" data-target="6">0</span><span class="stat-suffix">+</span>
-              <span class="stat-label">Années terrain</span>
+              <span class="stat-label" data-i18n="about.stats.field">Années terrain</span>
             </div>
           </div>
           <div data-show-in="it">
             <div class="stat-badge">
               <span class="stat-number" data-target="2">0</span>
-              <span class="stat-label">LAN / WAN</span>
+              <span class="stat-label" data-i18n="about.stats.lanwan">LAN / WAN</span>
             </div>
           </div>
           <div data-show-in="it">
             <div class="stat-badge">
               <span class="stat-number" data-target="2">0</span>
-              <span class="stat-label">Windows + Linux</span>
+              <span class="stat-label" data-i18n="about.stats.os">Windows + Linux</span>
             </div>
           </div>
           <div data-show-in="it">
             <div class="stat-badge">
               <span class="stat-number" data-target="2">0</span>
-              <span class="stat-label">Helpdesk + Réseaux</span>
+              <span class="stat-label" data-i18n="about.stats.helpdesk">Helpdesk + Réseaux</span>
             </div>
           </div>
         </div>
@@ -1438,7 +1489,7 @@
   <!-- ===== Skills ===== -->
   <section id="skills" class="animate-on-scroll">
     <div class="section-header">
-      <h2>Compétences</h2>
+      <h2 data-i18n="skills.title">Compétences</h2>
       <p class="section-subtitle">Technologies, outils et domaines d'expertise</p>
       <div class="section-divider"></div>
     </div>
@@ -1446,7 +1497,7 @@
     <div class="skills-container stagger-30" id="skills-container">
       <!-- Dev Skills -->
       <div class="skill-group" data-show-in="dev">
-        <h3 class="skill-group-title">Frontend</h3>
+        <h3 class="skill-group-title" data-i18n="skills.frontend">Frontend</h3>
         <div class="skill-badges">
           <span class="skill-badge">HTML5</span>
           <span class="skill-badge">CSS3</span>
@@ -1454,7 +1505,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="dev">
-        <h3 class="skill-group-title">Backend</h3>
+        <h3 class="skill-group-title" data-i18n="skills.backend">Backend</h3>
         <div class="skill-badges">
           <span class="skill-badge">PHP</span>
           <span class="skill-badge">Laravel</span>
@@ -1462,7 +1513,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="dev">
-        <h3 class="skill-group-title">Database</h3>
+        <h3 class="skill-group-title" data-i18n="skills.database">Database</h3>
         <div class="skill-badges">
           <span class="skill-badge">MySQL</span>
           <span class="skill-badge">SQL</span>
@@ -1470,7 +1521,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="dev">
-        <h3 class="skill-group-title">DevOps / Outils</h3>
+        <h3 class="skill-group-title" data-i18n="skills.devops">DevOps / Outils</h3>
         <div class="skill-badges">
           <span class="skill-badge">Git</span>
           <span class="skill-badge">GitHub</span>
@@ -1481,7 +1532,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="dev">
-        <h3 class="skill-group-title">AI Tools</h3>
+        <h3 class="skill-group-title" data-i18n="skills.ai">AI Tools</h3>
         <div class="skill-badges">
           <span class="skill-badge">Claude Code</span>
           <span class="skill-badge">AntiGravity</span>
@@ -1489,7 +1540,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="dev">
-        <h3 class="skill-group-title">Langages</h3>
+        <h3 class="skill-group-title" data-i18n="skills.languages">Langages</h3>
         <div class="skill-badges">
           <span class="skill-badge">Python</span>
           <span class="skill-badge">VBA</span>
@@ -1497,7 +1548,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="dev">
-        <h3 class="skill-group-title">Gestion de projet</h3>
+        <h3 class="skill-group-title" data-i18n="skills.pm">Gestion de projet</h3>
         <div class="skill-badges">
           <span class="skill-badge">Jira</span>
           <span class="skill-badge">Agile (Kanban)</span>
@@ -1507,7 +1558,7 @@
 
       <!-- Telecom Skills -->
       <div class="skill-group" data-show-in="telecom">
-        <h3 class="skill-group-title">Études réseau</h3>
+        <h3 class="skill-group-title" data-i18n="skills.telecom">Études réseau</h3>
         <div class="skill-badges">
           <span class="skill-badge">FTTH</span>
           <span class="skill-badge">FTTA</span>
@@ -1527,7 +1578,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="telecom">
-        <h3 class="skill-group-title">CAO/DAO</h3>
+        <h3 class="skill-group-title" data-i18n="skills.cad">CAO/DAO</h3>
         <div class="skill-badges">
           <span class="skill-badge">AutoCAD</span>
           <span class="skill-badge">QGIS</span>
@@ -1545,7 +1596,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="telecom">
-        <h3 class="skill-group-title">Génie civil</h3>
+        <h3 class="skill-group-title" data-i18n="skills.civil">Génie civil</h3>
         <div class="skill-badges">
           <span class="skill-badge">Piquetage</span>
           <span class="skill-badge">Coordination chantiers</span>
@@ -1566,7 +1617,7 @@
 
       <!-- IT Skills -->
       <div class="skill-group" data-show-in="it">
-        <h3 class="skill-group-title">Systèmes</h3>
+        <h3 class="skill-group-title" data-i18n="skills.systems">Systèmes</h3>
         <div class="skill-badges">
           <span class="skill-badge">Windows</span>
           <span class="skill-badge">Linux</span>
@@ -1574,7 +1625,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="it">
-        <h3 class="skill-group-title">Réseaux</h3>
+        <h3 class="skill-group-title" data-i18n="skills.networks">Réseaux</h3>
         <div class="skill-badges">
           <span class="skill-badge">LAN</span>
           <span class="skill-badge">WAN</span>
@@ -1585,7 +1636,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="it">
-        <h3 class="skill-group-title">Maintenance</h3>
+        <h3 class="skill-group-title" data-i18n="skills.maintenance">Maintenance</h3>
         <div class="skill-badges">
           <span class="skill-badge">PC</span>
           <span class="skill-badge">Imprimantes</span>
@@ -1612,7 +1663,7 @@
         </div>
       </div>
       <div class="skill-group" data-show-in="it">
-        <h3 class="skill-group-title">Support</h3>
+        <h3 class="skill-group-title" data-i18n="skills.support">Support</h3>
         <div class="skill-badges">
           <span class="skill-badge">Helpdesk</span>
           <span class="skill-badge">Ticketing</span>
@@ -1626,7 +1677,7 @@
   <!-- ===== Experience ===== -->
   <section id="experience" class="animate-on-scroll">
     <div class="section-header">
-      <h2>Expérience</h2>
+      <h2 data-i18n="exp.title">Expérience</h2>
       <p class="section-subtitle">Parcours professionnel et formations</p>
       <div class="section-divider"></div>
     </div>
@@ -1739,7 +1790,7 @@
       </div>
 
       <!-- Education + Certifications (all profiles) -->
-      <h3 class="timeline-section-label" data-show-in="all">🎓 Formation</h3>
+      <h3 class="timeline-section-label" data-show-in="all" data-i18n="exp.education">🎓 Formation</h3>
 
       <div class="timeline-item" data-show-in="all">
         <div class="timeline-dot"></div>
@@ -1767,7 +1818,7 @@
         </div>
       </div>
 
-      <h3 class="timeline-section-label" data-show-in="all">📜 Certifications</h3>
+      <h3 class="timeline-section-label" data-show-in="all" data-i18n="exp.certifications">📜 Certifications</h3>
 
       <div class="timeline-item" data-show-in="all">
         <div class="timeline-dot"></div>
@@ -1786,7 +1837,7 @@
   <!-- ===== Projects ===== -->
   <section id="projects" class="animate-on-scroll">
     <div class="section-header">
-      <h2>Projets</h2>
+      <h2 data-i18n="projects.title">Projets</h2>
       <p class="section-subtitle">Réalisations et outils développés</p>
       <div class="section-divider"></div>
     </div>
@@ -1797,11 +1848,11 @@
         <div class="project-header">
           <h3>GameCafé Manager</h3>
           <div class="project-links">
-            <a href="#" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
-            <a href="#" aria-label="Voir la démo (lien non disponible)">Demo</a>
+            <a href="#" data-i18n="projects.github" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
+            <a href="#" data-i18n="projects.demo" aria-label="Voir la démo (lien non disponible)">Demo</a>
           </div>
         </div>
-        <p>Application web de gestion des réservations et sessions gaming en temps réel.</p>
+        <p data-i18n="projects.gamecafe.desc">Application web de gestion des réservations et sessions gaming en temps réel.</p>
         <div class="project-tags">
           <span class="tag">PHP</span>
           <span class="tag">MySQL (PDO)</span>
@@ -1815,11 +1866,11 @@
         <div class="project-header">
           <h3>Personal Blog</h3>
           <div class="project-links">
-            <a href="#" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
-            <a href="#" aria-label="Voir la démo (lien non disponible)">Demo</a>
+            <a href="#" data-i18n="projects.github" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
+            <a href="#" data-i18n="projects.demo" aria-label="Voir la démo (lien non disponible)">Demo</a>
           </div>
         </div>
-        <p>Plateforme de blog développée avec Laravel suivant l'architecture MVC.</p>
+        <p data-i18n="projects.blog.desc">Plateforme de blog développée avec Laravel suivant l'architecture MVC.</p>
         <div class="project-tags">
           <span class="tag">Laravel</span>
           <span class="tag">Blade</span>
@@ -1833,10 +1884,10 @@
         <div class="project-header">
           <h3>AutoCAD AutoLISP Tools</h3>
           <div class="project-links">
-            <a href="#" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
+            <a href="#" data-i18n="projects.github" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
           </div>
         </div>
-        <p>Suite de scripts AutoLISP + VBA pour automatiser la génération de plans FTTH dans AutoCAD.</p>
+        <p data-i18n="projects.autolisp.desc">Suite de scripts AutoLISP + VBA pour automatiser la génération de plans FTTH dans AutoCAD.</p>
         <div class="project-tags">
           <span class="tag">AutoLISP</span>
           <span class="tag">VBA</span>
@@ -1848,10 +1899,10 @@
         <div class="project-header">
           <h3>QGIS Python Extension</h3>
           <div class="project-links">
-            <a href="#" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
+            <a href="#" data-i18n="projects.github" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
           </div>
         </div>
-        <p>Extension QGIS personnalisée pour le traitement de données télécom et la génération de fichiers SHP.</p>
+        <p data-i18n="projects.qgis.desc">Extension QGIS personnalisée pour le traitement de données télécom et la génération de fichiers SHP.</p>
         <div class="project-tags">
           <span class="tag">Python</span>
           <span class="tag">QGIS API</span>
@@ -1863,10 +1914,10 @@
         <div class="project-header">
           <h3>AutoCAD AutoLISP Tools</h3>
           <div class="project-links">
-            <a href="#" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
+            <a href="#" data-i18n="projects.github" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
           </div>
         </div>
-        <p>Suite de scripts AutoLISP + VBA pour automatiser la génération de plans FTTH dans AutoCAD — outils d'automatisation applicables à l'IT.</p>
+        <p data-i18n="projects.autolisp.desc">Suite de scripts AutoLISP + VBA pour automatiser la génération de plans FTTH dans AutoCAD — outils d'automatisation applicables à l'IT.</p>
         <div class="project-tags">
           <span class="tag">AutoLISP</span>
           <span class="tag">VBA</span>
@@ -1878,10 +1929,10 @@
         <div class="project-header">
           <h3>QGIS Python Extension</h3>
           <div class="project-links">
-            <a href="#" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
+            <a href="#" data-i18n="projects.github" aria-label="Voir sur GitHub (lien non disponible)">GitHub</a>
           </div>
         </div>
-        <p>Extension QGIS personnalisée pour le traitement de données télécom et la génération de fichiers SHP — scripts d'automatisation cross-domain.</p>
+        <p data-i18n="projects.qgis.desc">Extension QGIS personnalisée pour le traitement de données télécom et la génération de fichiers SHP — scripts d'automatisation cross-domain.</p>
         <div class="project-tags">
           <span class="tag">Python</span>
           <span class="tag">QGIS API</span>
@@ -1893,7 +1944,7 @@
   <!-- ===== Testimonials ===== -->
   <section id="testimonials" class="animate-on-scroll">
     <div class="section-header">
-      <h2>Témoignages</h2>
+      <h2 data-i18n="testimonials.title">Témoignages</h2>
       <p class="section-subtitle">Ce que disent mes collaborateurs</p>
       <div class="section-divider"></div>
     </div>
@@ -1903,22 +1954,19 @@
         <div class="testimonial-card">
           <div class="placeholder-text">
             <span style="font-size:2rem;display:block;margin-bottom:8px;">💬</span>
-            <p class="quote" style="font-style:normal;">Avis en attente — bientôt disponible</p>
-            <i>Yassine ajoutera bientôt des témoignages ici.</i>
+            <p class="quote" style="font-style:normal;" data-i18n="testimonials.placeholder">Avis en attente — bientôt disponible</p>
           </div>
         </div>
         <div class="testimonial-card">
           <div class="placeholder-text">
             <span style="font-size:2rem;display:block;margin-bottom:8px;">💬</span>
-            <p class="quote" style="font-style:normal;">Avis en attente — bientôt disponible</p>
-            <i>Yassine ajoutera bientôt des témoignages ici.</i>
+            <p class="quote" style="font-style:normal;" data-i18n="testimonials.placeholder">Avis en attente — bientôt disponible</p>
           </div>
         </div>
         <div class="testimonial-card">
           <div class="placeholder-text">
             <span style="font-size:2rem;display:block;margin-bottom:8px;">💬</span>
-            <p class="quote" style="font-style:normal;">Avis en attente — bientôt disponible</p>
-            <i>Yassine ajoutera bientôt des témoignages ici.</i>
+            <p class="quote" style="font-style:normal;" data-i18n="testimonials.placeholder">Avis en attente — bientôt disponible</p>
           </div>
         </div>
       </div>
@@ -1928,8 +1976,8 @@
   <!-- ===== Contact ===== -->
   <section id="contact" class="animate-on-scroll">
     <div class="section-header">
-      <h2>Contact</h2>
-      <p class="section-subtitle">Parlons de votre projet</p>
+      <h2 data-i18n="contact.title">Contact</h2>
+      <p class="section-subtitle" data-i18n="contact.subtitle">Parlons de votre projet</p>
       <div class="section-divider"></div>
     </div>
 
@@ -1938,7 +1986,7 @@
         <div class="contact-item">
           <div class="icon"><i data-lucide="mail"></i></div>
           <div>
-            <span class="label">Email</span>
+            <span class="label" data-i18n="contact.email">Email</span>
             <span class="value">ybenessahraoui@gmail.com</span>
           </div>
         </div>
@@ -1952,8 +2000,8 @@
         <div class="contact-item">
           <div class="icon"><i data-lucide="map-pin"></i></div>
           <div>
-            <span class="label">Localisation</span>
-            <span class="value">Agadir, Maroc</span>
+            <span class="label" data-i18n="contact.location">Localisation</span>
+            <span class="value" data-i18n="contact.location">Agadir, Maroc</span>
           </div>
         </div>
         <div class="contact-item">
@@ -1974,31 +2022,31 @@
 
       <form class="contact-form" id="contact-form" novalidate>
         <div class="form-group" id="form-group-name">
-          <label for="form-name">Nom</label>
-          <input type="text" id="form-name" name="name" placeholder="Votre nom" required>
+          <label for="form-name" data-i18n="contact.name">Nom</label>
+          <input type="text" id="form-name" name="name" data-i18n="contact.name" placeholder="Votre nom" required>
           <div class="form-error">Veuillez entrer votre nom</div>
         </div>
         <div class="form-group" id="form-group-email">
-          <label for="form-email">Email</label>
-          <input type="email" id="form-email" name="email" placeholder="votre@email.com" required>
+          <label for="form-email" data-i18n="contact.email">Email</label>
+          <input type="email" id="form-email" name="email" data-i18n="contact.email" placeholder="votre@email.com" required>
           <div class="form-error">Veuillez entrer un email valide</div>
         </div>
         <div class="form-group" id="form-group-subject">
-          <label for="form-subject">Sujet</label>
-          <input type="text" id="form-subject" name="subject" placeholder="Sujet de votre message" required>
+          <label for="form-subject" data-i18n="contact.subject">Sujet</label>
+          <input type="text" id="form-subject" name="subject" data-i18n="contact.subject" placeholder="Sujet de votre message" required>
           <div class="form-error">Veuillez entrer un sujet</div>
         </div>
         <div class="form-group" id="form-group-message">
-          <label for="form-message">Message</label>
-          <textarea id="form-message" name="message" placeholder="Votre message..." required></textarea>
+          <label for="form-message" data-i18n="contact.message">Message</label>
+          <textarea id="form-message" name="message" data-i18n="contact.message" placeholder="Votre message..." required></textarea>
           <div class="form-error">Veuillez entrer votre message</div>
         </div>
-        <button type="submit" class="btn-submit" id="form-submit">
+        <button type="submit" class="btn-submit" id="form-submit" data-i18n="contact.send">
           Envoyer le message
         </button>
         <div class="form-success" id="form-success">
           <i data-lucide="check-circle" style="width:24px;height:24px;margin-bottom:8px;"></i>
-          Message envoyé ! Merci de m'avoir contacté.
+          <span data-i18n="contact.success">Message envoyé ! Merci de m'avoir contacté.</span>
         </div>
       </form>
     </div>
@@ -2006,7 +2054,7 @@
 
   <!-- ===== Footer ===== -->
   <footer id="footer">
-    <p>&copy; 2026 Yassine BEN ESSAHRAOUI. Tous droits réservés.</p>
+    <p data-i18n="footer.copyright">&copy; 2026 Yassine BEN ESSAHRAOUI. Tous droits réservés.</p>
     <div class="footer-links">
       <a href="https://www.linkedin.com/in/yassine-ben-essahraoui-bb7b41125" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
       <a href="https://github.com/BEN-ESSAHRAOUI-Yassine" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
@@ -2021,6 +2069,245 @@
 
   <script>
     const profiles = ['dev', 'telecom', 'it'];
+
+    // ===== Translations =====
+    const translations = {
+      fr: {
+        'nav.about': 'À propos',
+        'nav.skills': 'Compétences',
+        'nav.projects': 'Projets',
+        'nav.contact': 'Contact',
+        'nav.testimonials': 'Témoignages',
+        'nav.profile.dev': 'Dev',
+        'nav.profile.telecom': 'Telecom',
+        'nav.profile.it': 'IT',
+        'hero.name': 'Yassine BEN ESSAHRAOUI',
+        'hero.title.dev': 'Développeur Full Stack',
+        'hero.title.telecom': 'Référent BE FTTH & Géomaticien',
+        'hero.title.it': 'Technicien Support & Réseaux',
+        'hero.tagline.dev': 'Des solutions web propres et efficaces — de l\'idée au déploiement.',
+        'hero.tagline.telecom': 'Conception de réseaux fibre et automatisation de workflows techniques depuis 2016.',
+        'hero.tagline.it': 'Maintenir les systèmes opérationnels — du helpdesk aux infrastructures réseau.',
+        'hero.cta.projects': 'Voir les projets',
+        'hero.cta.cv': 'Télécharger CV',
+        'about.title': 'À propos de moi',
+        'about.bio.dev': 'Développeur Full Stack spécialisé en PHP et Laravel, avec une solide expérience en automatisation industrielle et télécoms. Autonome, rigoureux et orienté qualité du code.',
+        'about.bio.telecom': 'Référent BE FTTH avec 4+ ans d\'expérience en études de réseaux fibre optique, conception AutoCAD/QGIS, et automatisation de workflows techniques.',
+        'about.bio.it': 'Technicien polyvalent en maintenance informatique, réseaux et support utilisateurs. Expérience sur LAN/WAN, postes Windows/Linux, et gestion de parc.',
+        'about.stats.exp': 'Années d\'exp.',
+        'about.stats.projects': 'Projets web',
+        'about.stats.certs': 'Certifications',
+        'about.stats.techs': 'Technologies',
+        'about.stats.fith': 'Années FTTH',
+        'about.stats.studies': 'Études réalisées',
+        'about.stats.cad': 'AutoCAD + QGIS',
+        'about.stats.clients': 'Clients opérateurs',
+        'about.stats.field': 'Années terrain',
+        'about.stats.lanwan': 'LAN / WAN',
+        'about.stats.os': 'Windows + Linux',
+        'about.stats.helpdesk': 'Helpdesk + Réseaux',
+        'skills.title': 'Compétences',
+        'skills.frontend': 'Frontend',
+        'skills.backend': 'Backend',
+        'skills.database': 'Base de données',
+        'skills.devops': 'Outils & DevOps',
+        'skills.ai': 'Outils AI',
+        'skills.languages': 'Langages & Data',
+        'skills.pm': 'Gestion de projet',
+        'skills.telecom': 'Études réseau',
+        'skills.cad': 'CAO/DAO',
+        'skills.civil': 'Génie civil',
+        'skills.systems': 'Systèmes',
+        'skills.networks': 'Réseaux',
+        'skills.maintenance': 'Maintenance',
+        'skills.support': 'Support',
+        'exp.title': 'Expérience',
+        'exp.education': 'Formation',
+        'exp.certifications': 'Certifications',
+        'projects.title': 'Projets',
+        'projects.github': 'Voir le code',
+        'projects.demo': 'Démo live',
+        'projects.gamecafe.desc': 'Application web de gestion des réservations et sessions gaming en temps réel.',
+        'projects.blog.desc': 'Plateforme de blog développée avec Laravel suivant l\'architecture MVC.',
+        'projects.autolisp.desc': 'Suite de scripts AutoLISP + VBA pour automatiser la génération de plans FTTH dans AutoCAD.',
+        'projects.qgis.desc': 'Extension QGIS pour le traitement de données télécom et la génération de fichiers SHP.',
+        'testimonials.title': 'Témoignages',
+        'testimonials.placeholder': 'Avis en attente — bientôt disponible',
+        'contact.title': 'Contact',
+        'contact.subtitle': 'Discutons de votre projet',
+        'contact.name': 'Nom',
+        'contact.email': 'Email',
+        'contact.subject': 'Sujet',
+        'contact.message': 'Message',
+        'contact.send': 'Envoyer le message',
+        'contact.success': 'Message envoyé avec succès !',
+        'contact.location': 'Agadir, Maroc',
+        'footer.copyright': '© 2026 Yassine BEN ESSAHRAOUI. Tous droits réservés.'
+      },
+      en: {
+        'nav.about': 'About',
+        'nav.skills': 'Skills',
+        'nav.projects': 'Projects',
+        'nav.contact': 'Contact',
+        'nav.testimonials': 'Testimonials',
+        'nav.profile.dev': 'Dev',
+        'nav.profile.telecom': 'Telecom',
+        'nav.profile.it': 'IT',
+        'hero.name': 'Yassine BEN ESSAHRAOUI',
+        'hero.title.dev': 'Full Stack Developer',
+        'hero.title.telecom': 'FTTH Network Engineer & GIS Specialist',
+        'hero.title.it': 'IT Support & Network Technician',
+        'hero.tagline.dev': 'Building clean, efficient web solutions — from idea to deployment.',
+        'hero.tagline.telecom': 'Designing fiber networks and automating technical workflows since 2016.',
+        'hero.tagline.it': 'Keeping systems running — from helpdesk to network infrastructure.',
+        'hero.cta.projects': 'View Projects',
+        'hero.cta.cv': 'Download CV',
+        'about.title': 'About Me',
+        'about.bio.dev': 'Full Stack Developer specializing in PHP and Laravel, with a strong background in industrial automation and telecom. Self-driven and quality-focused.',
+        'about.bio.telecom': 'FTTH reference engineer with 4+ years of experience in fiber optic network studies, AutoCAD/QGIS design, and technical workflow automation.',
+        'about.bio.it': 'Versatile IT technician in computer maintenance, networks, and user support. Experience with LAN/WAN, Windows/Linux workstations, and asset management.',
+        'about.stats.exp': 'Years of experience',
+        'about.stats.projects': 'Projects completed',
+        'about.stats.certs': 'Certifications',
+        'about.stats.techs': 'Technologies',
+        'about.stats.fith': 'FTTH years',
+        'about.stats.studies': 'Studies completed',
+        'about.stats.cad': 'AutoCAD + QGIS',
+        'about.stats.clients': 'Operator clients',
+        'about.stats.field': 'Field years',
+        'about.stats.lanwan': 'LAN / WAN',
+        'about.stats.os': 'Windows + Linux',
+        'about.stats.helpdesk': 'Helpdesk + Networks',
+        'skills.title': 'Skills',
+        'skills.frontend': 'Frontend',
+        'skills.backend': 'Backend',
+        'skills.database': 'Database',
+        'skills.devops': 'Tools & DevOps',
+        'skills.ai': 'AI Tools',
+        'skills.languages': 'Languages & Data',
+        'skills.pm': 'Project Management',
+        'skills.telecom': 'Network Studies',
+        'skills.cad': 'CAD/GIS',
+        'skills.civil': 'Civil Engineering',
+        'skills.systems': 'Systems',
+        'skills.networks': 'Networks',
+        'skills.maintenance': 'Maintenance',
+        'skills.support': 'Support',
+        'exp.title': 'Experience',
+        'exp.education': 'Education',
+        'exp.certifications': 'Certifications',
+        'projects.title': 'Projects',
+        'projects.github': 'View Code',
+        'projects.demo': 'Live Demo',
+        'projects.gamecafe.desc': 'Web app for managing reservations and real-time gaming sessions.',
+        'projects.blog.desc': 'Blog platform built with Laravel following MVC architecture.',
+        'projects.autolisp.desc': 'AutoLISP + VBA script suite to automate FTTH plan generation in AutoCAD.',
+        'projects.qgis.desc': 'Custom QGIS extension for telecom data processing and SHP file generation.',
+        'testimonials.title': 'Testimonials',
+        'testimonials.placeholder': 'Testimonials coming soon.',
+        'contact.title': 'Contact',
+        'contact.subtitle': 'Let\'s talk about your project',
+        'contact.name': 'Name',
+        'contact.email': 'Email',
+        'contact.subject': 'Subject',
+        'contact.message': 'Message',
+        'contact.send': 'Send Message',
+        'contact.success': 'Message sent successfully!',
+        'contact.location': 'Agadir, Morocco',
+        'footer.copyright': '© 2026 Yassine BEN ESSAHRAOUI. All rights reserved.'
+      },
+      ar: {
+        'nav.about': 'من أنا',
+        'nav.skills': 'المهارات',
+        'nav.projects': 'المشاريع',
+        'nav.contact': 'تواصل',
+        'nav.testimonials': 'التوصيات',
+        'nav.profile.dev': 'مطور',
+        'nav.profile.telecom': 'اتصالات',
+        'nav.profile.it': 'تقنية',
+        'hero.name': 'Yassine BEN ESSAHRAOUI',
+        'hero.title.dev': 'مطور ويب متكامل',
+        'hero.title.telecom': 'مهندس شبكات الألياف الضوئية',
+        'hero.title.it': 'تقني دعم تقني وشبكات',
+        'hero.tagline.dev': 'حلول ويب نظيفة وفعّالة — من الفكرة إلى النشر.',
+        'hero.tagline.telecom': 'تصميم شبكات الألياف وأتمتة سير العمل التقني منذ 2016.',
+        'hero.tagline.it': 'الحفاظ على تشغيل الأنظمة — من الدعم التقني إلى البنية التحتية.',
+        'hero.cta.projects': 'عرض المشاريع',
+        'hero.cta.cv': 'تحميل السيرة الذاتية',
+        'about.title': 'من أنا',
+        'about.bio.dev': 'مطور ويب متكامل متخصص في PHP وLaravel، مع خلفية قوية في الأتمتة الصناعية والاتصالات. مستقل ودقيق وملتزم بجودة الكود.',
+        'about.bio.telecom': 'مهندس مرجعي FTTH بخبرة 4+ سنوات في دراسات شبكات الألياف الضوئية وتصميم AutoCAD/QGIS وأتمتة سير العمل.',
+        'about.bio.it': 'تقني متعدد المهارات في صيانة الحواسيب والشبكات ودعم المستخدمين. خبرة في LAN/WAN وأنظمة Windows/Linux وإدارة الأصول.',
+        'about.stats.exp': 'سنوات الخبرة',
+        'about.stats.projects': 'مشاريع منجزة',
+        'about.stats.certs': 'الشهادات',
+        'about.stats.techs': 'التقنيات',
+        'about.stats.fith': 'سنوات FTTH',
+        'about.stats.studies': 'دراسات منجزة',
+        'about.stats.cad': 'AutoCAD + QGIS',
+        'about.stats.clients': 'عملاء المشغلين',
+        'about.stats.field': 'سنوات ميدانية',
+        'about.stats.lanwan': 'LAN / WAN',
+        'about.stats.os': 'Windows + Linux',
+        'about.stats.helpdesk': 'Helpdesk + شبكات',
+        'skills.title': 'المهارات',
+        'skills.frontend': 'الواجهة الأمامية',
+        'skills.backend': 'الواجهة الخلفية',
+        'skills.database': 'قواعد البيانات',
+        'skills.devops': 'الأدوات',
+        'skills.ai': 'أدوات الذكاء الاصطناعي',
+        'skills.languages': 'لغات البرمجة',
+        'skills.pm': 'إدارة المشاريع',
+        'skills.telecom': 'دراسات الشبكة',
+        'skills.cad': 'التصميم الهندسي',
+        'skills.civil': 'الهندسة المدنية',
+        'skills.systems': 'الأنظمة',
+        'skills.networks': 'الشبكات',
+        'skills.maintenance': 'الصيانة',
+        'skills.support': 'الدعم التقني',
+        'exp.title': 'الخبرة المهنية',
+        'exp.education': 'التعليم',
+        'exp.certifications': 'الشهادات',
+        'projects.title': 'المشاريع',
+        'projects.github': 'عرض الكود',
+        'projects.demo': 'عرض مباشر',
+        'projects.gamecafe.desc': 'تطبيق ويب لإدارة الحجوزات وجلسات الألعاب في الوقت الفعلي.',
+        'projects.blog.desc': 'منصة مدونة مبنية بـ Laravel باتباع معمارية MVC.',
+        'projects.autolisp.desc': 'مجموعة سكريبتات AutoLISP وVBA لأتمتة إنشاء خطط FTTH في AutoCAD.',
+        'projects.qgis.desc': 'امتداد QGIS مخصص لمعالجة بيانات الاتصالات وإنشاء ملفات SHP.',
+        'testimonials.title': 'التوصيات',
+        'testimonials.placeholder': 'التوصيات قادمة قريباً.',
+        'contact.title': 'تواصل معي',
+        'contact.subtitle': 'لنتحدث عن مشروعك',
+        'contact.name': 'الاسم',
+        'contact.email': 'البريد الإلكتروني',
+        'contact.subject': 'الموضوع',
+        'contact.message': 'الرسالة',
+        'contact.send': 'إرسال',
+        'contact.success': 'تم إرسال الرسالة بنجاح!',
+        'contact.location': 'أكادير، المغرب',
+        'footer.copyright': '© 2026 ياسين بن الصحراوي. جميع الحقوق محفوظة.'
+      }
+    };
+
+    // ===== Typewriter Roles per Profile per Language =====
+    const typewriterRoles = {
+      dev: {
+        fr: ['Développeur Full Stack', 'Ingénieur PHP & Laravel', 'Automatiseur Web'],
+        en: ['Full Stack Developer', 'PHP & Laravel Engineer', 'Web Automation Builder'],
+        ar: ['مطور ويب متكامل', 'مهندس PHP وLaravel', 'بناء حلول أتمتة الويب']
+      },
+      telecom: {
+        fr: ['Ingénieur Réseau FTTH', 'Spécialiste AutoCAD & QGIS', 'Expert Automatisation'],
+        en: ['FTTH Network Engineer', 'AutoCAD & QGIS Specialist', 'Workflow Automation Expert'],
+        ar: ['مهندس شبكات FTTH', 'متخصص AutoCAD وQGIS', 'خبير أتمتة سير العمل']
+      },
+      it: {
+        fr: ['Technicien Support IT', 'Spécialiste Réseaux & Systèmes', 'Administrateur Systèmes'],
+        en: ['IT Support Technician', 'Network & Systems Specialist', 'Systems Administrator'],
+        ar: ['تقني دعم تقني', 'متخصص شبكات وأنظمة', 'مدير أنظمة']
+      }
+    };
 
     // ===== Profile Switching =====
     function setProfile(name) {
@@ -2052,6 +2339,43 @@
       }
     }
 
+    // ===== Language Switching =====
+    function setLang(code) {
+      document.documentElement.setAttribute('data-lang', code);
+      document.documentElement.setAttribute('dir', code === 'ar' ? 'rtl' : 'ltr');
+      localStorage.setItem('lang', code);
+
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.lang === code);
+      });
+
+      renderTranslations(code);
+
+      if (typeof initTypewriter === 'function') {
+        initTypewriter();
+      }
+    }
+
+    // ===== Render Translations =====
+    function renderTranslations(lang) {
+      var dict = translations[lang] || translations.fr;
+
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        var text = dict[key];
+        if (!text) return;
+
+        var tag = el.tagName.toLowerCase();
+        if (tag === 'input' || tag === 'textarea') {
+          if (el.getAttribute('placeholder') !== null) {
+            el.setAttribute('placeholder', text);
+          }
+        } else {
+          el.textContent = text;
+        }
+      });
+    }
+
     // ===== Typewriter =====
     var typewriterTimeout;
 
@@ -2060,14 +2384,10 @@
         clearTimeout(typewriterTimeout);
       }
 
-      var rolesByProfile = {
-        dev: ['Full Stack Developer', 'PHP & Laravel Engineer', 'Web Automation Builder'],
-        telecom: ['FTTH Network Engineer', 'GIS & AutoCAD Specialist', 'Workflow Automation Expert'],
-        it: ['IT Support Technician', 'Network & Hardware Specialist', 'Systems Administrator']
-      };
-
       var currentProfile = document.documentElement.getAttribute('data-profile') || 'dev';
-      var roles = rolesByProfile[currentProfile] || rolesByProfile.dev;
+      var currentLang = document.documentElement.getAttribute('data-lang') || 'fr';
+      var profileRoles = typewriterRoles[currentProfile] || typewriterRoles.dev;
+      var roles = profileRoles[currentLang] || profileRoles.fr;
       var el = document.getElementById('typewriter-text');
       if (!el) return;
 
@@ -2345,9 +2665,12 @@
     (function() {
       var savedProfile = localStorage.getItem('profile') || 'dev';
       var savedMode = localStorage.getItem('mode') || 'dark';
+      var savedLang = localStorage.getItem('lang') || 'fr';
 
       document.documentElement.setAttribute('data-profile', savedProfile);
       document.documentElement.setAttribute('data-mode', savedMode);
+      document.documentElement.setAttribute('data-lang', savedLang);
+      document.documentElement.setAttribute('dir', savedLang === 'ar' ? 'rtl' : 'ltr');
 
       // Set active tab
       document.querySelectorAll('.profile-tab').forEach(function(tab) {
@@ -2359,6 +2682,18 @@
       if (modeIcon) {
         modeIcon.setAttribute('data-lucide', savedMode === 'dark' ? 'sun' : 'moon');
       }
+
+      // Set active lang button
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.lang === savedLang);
+      });
+
+      // Lang button click handlers
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          setLang(btn.dataset.lang);
+        });
+      });
 
       // Profile tab click handlers
       document.querySelectorAll('.profile-tab').forEach(function(tab) {
@@ -2378,7 +2713,8 @@
         });
       }
 
-      // Init all
+      // Render translations and init all
+      renderTranslations(savedLang);
       initTypewriter();
       initScrollAnimations();
       initStatCounters();

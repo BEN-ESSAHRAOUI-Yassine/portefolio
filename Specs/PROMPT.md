@@ -12,6 +12,7 @@ Read every file in the `specs/` folder in this order:
 4. `specs/04-content.md` — all real copy and data, `[PLACEHOLDER]` markers
 5. `specs/05-components.md` — every UI component with HTML structure
 6. `specs/06-interactions.md` — animations, scroll effects, transitions
+7. `specs/07-language.md` — full i18n system: all translation strings, RTL, font, JS logic
 
 Do not skip any file. Do not start coding until you have read all 6.
 
@@ -35,6 +36,23 @@ Plus a **dark/light mode toggle** independent of the profile — 6 total variant
 
 Both are controlled via `data-profile` and `data-mode` attributes on `<html>`, persisted in `localStorage`.
 
+### Core feature 2: 3-language i18n system
+
+The portfolio supports 3 languages switchable via flag icons in the navbar:
+
+| Flag | Code | Language | Default |
+|------|------|----------|---------|
+| 🇫🇷 | `fr` | Français | ✅ |
+| 🇬🇧 | `en` | English | — |
+| 🇲🇦 | `ar` | العربية | — |
+
+- Language stored in `localStorage`, applied as `data-lang` on `<html>`
+- Arabic sets `dir="rtl"` on `<html>` and uses `Noto Sans Arabic` font
+- All visible text uses `data-i18n="key"` attributes — never hardcoded strings
+- `renderTranslations(lang)` walks all `[data-i18n]` elements and swaps text
+- Typewriter roles are also translated per language (see `specs/07-language.md`)
+- Full translation table for all 3 languages is in `specs/07-language.md`
+
 When the user switches profile:
 - The color palette changes instantly (CSS custom properties)
 - The visible content changes (different hero text, skills, experience entries, projects)
@@ -53,7 +71,9 @@ When the user switches profile:
 7. **Profile tabs stay visible on mobile** — do not hide them in the hamburger menu.
 8. **Smooth profile/mode transitions** — apply `transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease` globally.
 9. **Respect `prefers-reduced-motion`** — wrap all animations in a media query check. See `specs/06-interactions.md`.
-10. **Output is one file:** `portfolio.html`. Do not split into multiple files.
+10. **Single HTML file** output: `portfolio.html`.
+11. **i18n — no hardcoded text strings.** Every user-visible text element must have a `data-i18n` key. French (`fr`) is the default. All 3 languages must be fully implemented using the translation table in `specs/07-language.md`.
+12. **Arabic RTL.** When `data-lang="ar"` is active: set `dir="rtl"` on `<html>`, load and apply `Noto Sans Arabic`, and mirror layout via CSS logical properties or `[dir="rtl"]` selectors.
 
 ---
 
@@ -113,8 +133,11 @@ function initNavbar() { ... }
 // Scroll-to-top button
 function initScrollToTop() { ... }
 
-// Hamburger menu toggle
-function initHamburger() { ... }
+// Language switching — sets data-lang, dir, font, re-renders all data-i18n elements
+function setLang(code) { ... }
+
+// Render all [data-i18n] elements with correct language strings
+function renderTranslations(lang) { ... }
 
 // On load: restore localStorage preferences, then init all
 ```
@@ -138,6 +161,11 @@ Before outputting the final file, verify:
 - [ ] Scroll-to-top button appears after 300px
 - [ ] `[PLACEHOLDER]` items are rendered gracefully (not broken)
 - [ ] `prefers-reduced-motion` disables animations
+- [ ] Language selector (🇫🇷 🇬🇧 🇲🇦) visible in navbar, French active by default
+- [ ] All visible text uses `data-i18n` keys — zero hardcoded strings
+- [ ] Switching to Arabic sets `dir="rtl"`, loads Noto Sans Arabic, mirrors layout
+- [ ] Typewriter resets with correct language strings on lang switch
+- [ ] Language preference persisted in `localStorage`
 - [ ] No hardcoded color values anywhere in CSS
 
 ---

@@ -19,6 +19,7 @@ Build a **single-page personal portfolio website** for Yassine BEN ESSAHRAOUI, a
 | `specs/04-content.md` | Final copy, real data, placeholder markers |
 | `specs/05-components.md` | Reusable UI components list and behavior |
 | `specs/06-interactions.md` | Animations, scroll behavior, micro-interactions |
+| `specs/07-language.md` | i18n system: FR (default), EN, AR with RTL support |
 
 ---
 
@@ -36,6 +37,7 @@ When building this portfolio, agents must:
 8. **Sections order:** Hero → About → Skills → Experience → Projects → Testimonials → Contact.
 9. **All placeholder content** is marked with `[PLACEHOLDER]` in `specs/04-content.md` — do not invent real data.
 10. **Accessibility:** semantic HTML, aria-labels on interactive elements, keyboard-navigable theme switcher.
+11. **i18n:** All visible text must use `data-i18n` keys. French is default. Arabic triggers `dir="rtl"` on `<html>` and loads Noto Sans Arabic. See `specs/07-language.md` for all translation strings.
 
 ---
 
